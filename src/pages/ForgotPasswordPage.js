@@ -46,7 +46,7 @@ const ForgotPasswordPage = () => {
                     Simulated reset link: <Link to={resetLink}>{resetLink}</Link>
                   </div>
                 )}
-                <button type="submit" className="btn btn-warning w-100">
+                <button type="submit" className="btn btn-primary w-100">
                   Send Reset Link
                 </button>
               </form>

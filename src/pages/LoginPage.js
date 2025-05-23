@@ -23,13 +23,13 @@ const LoginPage = () => {
 
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
-    console.log('Google user:', decoded);
     const user = {
         name: decoded.name,
         email: decoded.email,
     };
     
     localStorage.setItem('authUser', JSON.stringify(user));
+    localStorage.setItem('loginStatus', 'true');
     navigate('/dashboard');
   };
 

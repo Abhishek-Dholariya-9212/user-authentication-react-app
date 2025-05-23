@@ -8,7 +8,7 @@ const Dashboard = () => {
     <>
       <Navbar />
       <MainSection />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
