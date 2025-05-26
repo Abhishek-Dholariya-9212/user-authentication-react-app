@@ -6,6 +6,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const Navbar = () => {
   const user = getCurrentUser();
+  console.log('Current user:', user);
+  
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -27,7 +29,7 @@ const Navbar = () => {
               <span className="me-2">
                 <i className="bi bi-person-circle"></i>
               </span>
-              {user?.name || 'User'}
+              {user?.user.name || 'User'}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item onClick={handleChangePassword}>Change Password</Dropdown.Item>

@@ -15,15 +15,6 @@ const ChangePassword = () => {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Assume user info is stored in localStorage under 'authUser' and password under 'authPassword'
-  // (For demo only; in a real app, never store passwords in localStorage)
-  const getAuthUser = () => {
-    return JSON.parse(localStorage.getItem('authUser'));
-  };
-  const getAuthPassword = () => {
-    return localStorage.getItem('password') || '';
-  };
-
   const setAuthPassword = (newPassword) => {
     localStorage.setItem('password', newPassword);
   };
@@ -47,7 +38,10 @@ const ChangePassword = () => {
       return;
     }
     const storedPassword = getCurrentUser();
-    const currentPassword = storedPassword.password
+    console.log('storedPassword', storedPassword);
+    
+    const currentPassword = storedPassword.user?.password
+    console.log('currentPassword', currentPassword);
     
     if (form.currentPassword !== currentPassword) {
       setError('Current password is incorrect');
