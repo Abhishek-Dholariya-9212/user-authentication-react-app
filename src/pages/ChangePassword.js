@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getCurrentUser } from '../services/authService';
-
+import { getCurrentUser, changePassword } from '../services/authService';
 
 const ChangePassword = () => {
   const navigate = useNavigate();
@@ -14,10 +13,6 @@ const ChangePassword = () => {
   });
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const setAuthPassword = (newPassword) => {
-    localStorage.setItem('password', newPassword);
-  };
 
   const handleChange = (e) => {
     setForm((prev) => ({
@@ -37,20 +32,24 @@ const ChangePassword = () => {
       setError('New passwords do not match');
       return;
     }
-    const storedPassword = getCurrentUser();
-    console.log('storedPassword', storedPassword);
-    
-    const currentPassword = storedPassword.user?.password
-    console.log('currentPassword', currentPassword);
-    
+
+    const currentUser = getCurrentUser();
+    const currentPassword = currentUser.user?.password;
+    const email = currentUser.user?.email;
+
     if (form.currentPassword !== currentPassword) {
       setError('Current password is incorrect');
       return;
     }
+
     setIsSubmitting(true);
     try {
-      // Update the password in localStorage
-      setAuthPassword(form.newPassword);
+      const result = changePassword(email, form.newPassword);
+      if (result.error) {
+        setError(result.error);
+        setIsSubmitting(false);
+        return;
+      }
       toast.success('Password changed successfully!');
       setTimeout(() => navigate('/dashboard'), 1500);
     } catch (err) {
